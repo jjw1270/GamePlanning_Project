@@ -217,21 +217,6 @@ public class GunInventory : MonoBehaviour {
 					icons[_number]);
 			}
 		}
-		else if(menuStyle == MenuStyle.vertical){
-			if(deleteCloneFromName == gunsIHave[_number]){
-				GUI.DrawTexture(new Rect(vec2(beginPosition).x,vec2(beginPosition).y +(_number*position_y(spacing)),//position variables
-					vec2(size).x, vec2(size).y),//size
-					icons[_number]);
-			}
-			else{			
-				GUI.DrawTexture(new Rect(vec2(beginPosition).x,vec2(beginPosition).y + 10  +(_number*position_y(spacing)),//position variables
-					vec2(size).x - 20, vec2(size).y- 20),//size
-					icons[_number]);
-			}
-		}
-
-
-
 	}
 
 	/*
