@@ -1,35 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(Rigidbody))]
 
 public class PlayerMove : MonoBehaviour
 {
-    Rigidbody rb;
-    public float currentSpeed;
-    public Transform cameraMain;
-    public float jumpForce = 500;
-    public Vector3 cameraPosition;
-    public Transform bulletSpawn; //from here we shoot a ray to check where we hit him;
-    private void Awake() {
-        rb = GetComponent<Rigidbody>();
-        cameraMain = transform.Find("Main Camera").transform;
-        bulletSpawn = cameraMain.Find ("BulletSpawn").transform;
-    }
+    public float speed = 5f;
+    public float gravity = -9.81f;
+    public float jumpPower = 3f;
+    float yVelocity;
+    CharacterController cc;
     void Start()
     {
-        
+        cc = GetComponent<CharacterController>();
     }
-
-    void FixedUpdate(){
+    void Update() {
+        yVelocity += gravity * Time.deltaTime;
         
-    }
-	private Vector2 horizontalMovement;
-	public int maxSpeed = 5;
+        if(cc.isGrounded){
+            if(Input.GetButtonDown("Jump"))
+                yVelocity = jumpPower;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+            speed = 10f;
+        else if(Input.GetKeyUp(KeyCode.LeftShift))
+            speed = 5f;
+
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        Vector3 dir = Vector3.right * h + Vector3.forward * v;
+        dir = Camera.main.transform.TransformDirection(dir);
+        dir.Normalize();
+
+        dir.y = yVelocity;
+
+        cc.Move(dir * speed * Time.deltaTime);
     }
 }

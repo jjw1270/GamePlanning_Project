@@ -24,7 +24,6 @@ public class MouseLookScript : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.L)) {
 			Cursor.lockState = CursorLockMode.Locked;
-
 		}
 		deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
 
