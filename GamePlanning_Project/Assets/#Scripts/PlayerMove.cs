@@ -16,13 +16,13 @@ public class PlayerMove : MonoBehaviour
     void Update() {
         yVelocity += gravity * Time.deltaTime;
         
-        if(cc.isGrounded){
-            if(Input.GetButtonDown("Jump"))
-                yVelocity = jumpPower;
-        }
+        // if(cc.isGrounded){
+        //     if(Input.GetButtonDown("Jump"))
+        //         yVelocity = jumpPower;
+        // }
 
         if(Input.GetKeyDown(KeyCode.LeftShift))
-            speed = 10f;
+            speed = 8f;
         else if(Input.GetKeyUp(KeyCode.LeftShift))
             speed = 5f;
 
