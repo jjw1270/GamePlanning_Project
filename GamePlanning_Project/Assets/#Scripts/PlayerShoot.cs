@@ -59,19 +59,8 @@ public class PlayerShoot : MonoBehaviour
                 //}
             }
         }
-        
-        // if(Physics.Raycast(ray, out hit, 2000f, 1<<6)){
-        //     //Debug.Log("fff");
-        //     if(Input.GetMouseButton(0) && !isFire){
-        //         //shoot
-        //         isFire = true;
-        //         StartCoroutine(fireDelay());
-        //         if(hit.transform.CompareTag("Enemy")){
-        //             Debug.Log("Àû È÷¶Ç");
-        //         }
-        //     }
-        // }
     }
+    
     IEnumerator fireDelay(){
         bulletCount--;
         gun.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
