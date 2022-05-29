@@ -14,6 +14,10 @@ public class PlayerShoot : MonoBehaviour
     private GameObject gun;
     public static int bulletCount = 30;
     public Text bulletCountText;
+    public GameObject bloodEffect;
+    private float maxHp = 100f;
+    public float curHp = 100f;
+    public Image hpBar;
     void Start()
     {
         isFire = false;
@@ -24,6 +28,8 @@ public class PlayerShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        hpBar.fillAmount = curHp / maxHp;
+
         bulletCountText.text = bulletCount.ToString();
         if(weaponNum != weaponTmp){
             weaponTmp = weaponNum;
@@ -53,10 +59,14 @@ public class PlayerShoot : MonoBehaviour
             isFire = true;
             StartCoroutine(fireDelay());
 
-            if(Physics.Raycast(ray, out hit, 2000f, 1<<6)){
-                //if(hit.transform.CompareTag("Enemy")){
-                    Debug.Log("Àû È÷¶Ç");
-                //}
+            if(Physics.Raycast(ray, out hit, 1000f, 1<<6)){
+                Debug.Log("hit");
+                GameObject blood = Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                blood.transform.SetParent(hit.transform);
+                ZombieCtrl zc = hit.transform.GetComponent<ZombieCtrl>();
+                zc.EnemyHP(gunDamage);
+                if(zc.target == null)
+                    zc.target = Camera.main.transform;
             }
         }
     }

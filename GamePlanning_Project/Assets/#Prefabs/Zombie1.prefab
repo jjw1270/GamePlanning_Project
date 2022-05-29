@@ -2551,7 +2551,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4803580633199995877}
   - component: {fileID: 3180593445093787295}
-  - component: {fileID: 5381644816280197434}
+  - component: {fileID: 1637812968}
+  - component: {fileID: 1637812973}
+  - component: {fileID: 1637812972}
   m_Layer: 6
   m_Name: Zombie1
   m_TagString: Untagged
@@ -2568,7 +2570,7 @@ Transform:
   m_GameObject: {fileID: 8427051815325014518}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 46.58, y: 30, z: 58.7}
-  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_Children:
   - {fileID: 6943404316743308126}
   - {fileID: 5582561875058255526}
@@ -2607,8 +2609,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!136 &5381644816280197434
-CapsuleCollider:
+--- !u!54 &1637812968
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8427051815325014518}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!65 &1637812973
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2617,10 +2635,23 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.4
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.6707943, y: 1.876645, z: 0.49296653}
+  m_Center: {x: 0, y: 0.9179262, z: 0.010936943}
+--- !u!114 &1637812972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8427051815325014518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a989f88bfdeb63f499573eee091f0b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  item: {fileID: 1000011023395326, guid: 2ce15a1900ef14a459f78260cd05a3dc, type: 3}
 --- !u!1 &8542080604457238887
 GameObject:
   m_ObjectHideFlags: 0

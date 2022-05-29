@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AK : MonoBehaviour
 {
-    public float fireDelay = 0.15f;
-    public int damage = 10;
+    public float fireDelay = 0.2f;
+    public int damage = 30;
     void Start()
     {
         

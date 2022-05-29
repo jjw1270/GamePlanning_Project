@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pistol : MonoBehaviour
 {
     public float fireDelay = 0.5f;
-    public int damage = 10;
+    public int damage = 15;
     void Start()
     {
         

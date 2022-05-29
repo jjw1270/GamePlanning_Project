@@ -9,17 +9,22 @@ public class PlayerMove : MonoBehaviour
     public float jumpPower = 3f;
     float yVelocity;
     CharacterController cc;
+    AudioSource audioSource;
+    public AudioClip walkSound, runSound;
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        audioSource = this.GetComponent<AudioSource>();
     }
     void Update() {
         yVelocity += gravity * Time.deltaTime;
         
-        // if(cc.isGrounded){
-        //     if(Input.GetButtonDown("Jump"))
-        //         yVelocity = jumpPower;
-        // }
+        if(speed == 5f){
+            audioSource.clip = walkSound;
+        }
+        else{
+            audioSource.clip = runSound;
+        }
 
         if(Input.GetKeyDown(KeyCode.LeftShift))
             speed = 8f;
@@ -28,6 +33,15 @@ public class PlayerMove : MonoBehaviour
 
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
+
+        if(h != 0 || v != 0){
+            if(!audioSource.isPlaying)
+                audioSource.Play();
+        }
+        else{
+            if(audioSource.isPlaying)
+                audioSource.Stop();
+        }
 
         Vector3 dir = Vector3.right * h + Vector3.forward * v;
         dir = Camera.main.transform.TransformDirection(dir);
