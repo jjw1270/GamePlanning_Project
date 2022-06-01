@@ -13,9 +13,10 @@ public class ItemCtrl : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.isPaused) return;
         if(target != null){
             target.parent.GetComponent<AudioSource>().PlayOneShot(getItemSound);
-            PlayerShoot.bulletCount+=10;
+            PlayerShoot.bulletCount+=15;
             target = null;
             Destroy(this.gameObject);
         }

@@ -10,6 +10,9 @@ TagManager:
   - LevelPart
   - FxTemporaire
   - Enemy
+  - PISTOL
+  - SMG
+  - AK
   layers:
   - Default
   - TransparentFX

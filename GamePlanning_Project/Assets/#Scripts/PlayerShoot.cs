@@ -16,37 +16,41 @@ public class PlayerShoot : MonoBehaviour
     public Text bulletCountText;
     public GameObject bloodEffect;
     private float maxHp = 100f;
-    public float curHp = 100f;
+    public static float curHp = 100f;
     public Image hpBar;
     void Start()
     {
+        weaponNum = 1;
+        bulletCount = 30;
         isFire = false;
         screenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
         weaponTmp = 0;
+        curHp = 100f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.isPaused) return;
         hpBar.fillAmount = curHp / maxHp;
 
         bulletCountText.text = bulletCount.ToString();
         if(weaponNum != weaponTmp){
             weaponTmp = weaponNum;
-            gun = GameObject.Find("Gun");
-            switch(gun.transform.GetChild(0).name){
-                case "PISTOL":
-                    fireDelayTime = gun.transform.GetChild(0).GetComponent<Pistol>().fireDelay;
-                    gunDamage = gun.transform.GetChild(0).GetComponent<Pistol>().damage;
-                    break;
-                case "SMG":
-                    fireDelayTime = gun.transform.GetChild(0).GetComponent<SMG>().fireDelay;
-                    gunDamage = gun.transform.GetChild(0).GetComponent<SMG>().damage;
-                    break;
-                case "AK":
-                    fireDelayTime = gun.transform.GetChild(0).GetComponent<AK>().fireDelay;
-                    gunDamage = gun.transform.GetChild(0).GetComponent<AK>().damage;
-                    break;
+            if(GameObject.Find("PISTOL")){
+                gun = GameObject.Find("PISTOL");
+                fireDelayTime = gun.transform.GetChild(0).GetComponent<Pistol>().fireDelay;
+                gunDamage = gun.transform.GetChild(0).GetComponent<Pistol>().damage;
+            }
+            else if(GameObject.Find("SMG")){
+                gun = GameObject.Find("SMG");
+                fireDelayTime = gun.transform.GetChild(0).GetComponent<SMG>().fireDelay;
+                gunDamage = gun.transform.GetChild(0).GetComponent<SMG>().damage;
+            }
+            else if(GameObject.Find("AK")){
+                gun = GameObject.Find("AK");
+                fireDelayTime = gun.transform.GetChild(0).GetComponent<AK>().fireDelay;
+                gunDamage = gun.transform.GetChild(0).GetComponent<AK>().damage;
             }
         }
 
@@ -63,19 +67,27 @@ public class PlayerShoot : MonoBehaviour
                 Debug.Log("hit");
                 GameObject blood = Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 blood.transform.SetParent(hit.transform);
-                ZombieCtrl zc = hit.transform.GetComponent<ZombieCtrl>();
-                zc.EnemyHP(gunDamage);
-                if(zc.target == null)
-                    zc.target = Camera.main.transform;
+                if(hit.transform.name == "boss"){
+                    ZombieCtrlBoss zc = hit.transform.GetComponent<ZombieCtrlBoss>();
+                    zc.EnemyHP(gunDamage);
+                    if(zc.target == null)
+                        zc.target = Camera.main.transform;
+                }
+                else{
+                    ZombieCtrl zc = hit.transform.GetComponent<ZombieCtrl>();
+                    zc.EnemyHP(gunDamage);
+                    if(zc.target == null)
+                        zc.target = Camera.main.transform;
+                }
             }
         }
     }
     
     IEnumerator fireDelay(){
         bulletCount--;
-        gun.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+        gun.transform.GetChild(0).gameObject.SetActive(true);
         yield return new WaitForSeconds(fireDelayTime);   // 총기마다 연사시간 다름
-        gun.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+        gun.transform.GetChild(0).gameObject.SetActive(false);
         isFire = false;
     }
 }

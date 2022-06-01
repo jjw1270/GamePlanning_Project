@@ -10,7 +10,9 @@ public class ZombieCtrl : MonoBehaviour
     private int curHp = 100;
     bool isCollision = false;
     public GameObject item;
+    bool isAttack;
     Vector3 diePos;
+    bool isItemDrop;
     private void Awake() {
         anim = this.GetComponent<Animator>();
     }
@@ -32,6 +34,7 @@ public class ZombieCtrl : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, 12f);
     }
     private void Update() {
+        if(GameManager.isPaused) return;
         if(target != null){
             if(!isCollision){
                 anim.SetBool("isRun", true);
@@ -41,11 +44,10 @@ public class ZombieCtrl : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision other) {
+    private void OnCollisionEnter(Collision other) {
         //Debug.Log("공격");
         if(other.transform.CompareTag("Player")){
             anim.SetBool("isAttack", true);
-            Debug.Log("공격");
             StartCoroutine(Attack());
             isCollision = true;
         }
@@ -60,7 +62,12 @@ public class ZombieCtrl : MonoBehaviour
             anim.SetBool("isDie", true);
             target = null;
             moveSpeed = 0;
-            Invoke("ItemDrop", 1f);
+            if(!isItemDrop){
+                GameManager.deadZombieCount++;
+                GameManager.zombieCount--;
+                Invoke("ItemDrop", 1f);
+                isItemDrop = true;
+            }
             Destroy(gameObject, 2f);
         }
     }
@@ -68,7 +75,13 @@ public class ZombieCtrl : MonoBehaviour
         Instantiate(item, new Vector3(transform.position.x, transform.position.y+1f, transform.position.z), Quaternion.identity);
     }
     IEnumerator Attack(){
-        target.GetComponent<PlayerShoot>().curHp -= 5;
+        if(!isAttack){
+            PlayerShoot.curHp -= 5;
+            isAttack = true;
+            Debug.Log("공격");
+        }
         yield return new WaitForSeconds(3f);
+        isAttack = false;
+        
     }
 }

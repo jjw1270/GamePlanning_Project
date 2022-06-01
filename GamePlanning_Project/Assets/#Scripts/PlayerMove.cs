@@ -17,6 +17,8 @@ public class PlayerMove : MonoBehaviour
         audioSource = this.GetComponent<AudioSource>();
     }
     void Update() {
+        if(GameManager.isPaused) return;
+
         yVelocity += gravity * Time.deltaTime;
         
         if(speed == 5f){
