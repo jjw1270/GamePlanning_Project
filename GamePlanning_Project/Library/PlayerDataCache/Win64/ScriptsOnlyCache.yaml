@@ -23,9 +23,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimatorControllerTool
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -194,6 +195,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 83
       Script: {instanceID: 0}
+    - Class: 89
+      Script: {instanceID: 0}
     - Class: 90
       Script: {instanceID: 0}
     - Class: 91
@@ -223,7 +226,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3968}
     - Class: 114
-      Script: {instanceID: 18206}
+      Script: {instanceID: 18534}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -927,4 +930,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/#Scenes/StartScene.unity
   - Assets/#Scenes/MainScene1.unity
-  playerPath: "D:/\uB098\uBB34\uBC1C\uBC1C\uC774/GamePlanning_Project.exe"
+  playerPath: "D:/\uB3C5\uC218\uB9AC/GamePlanning_Project.exe"
