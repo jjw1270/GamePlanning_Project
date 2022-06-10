@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public Text quest;
     public GameObject bossZombie;
     public Text zomDieCount;
+    bool isSpawned;
     void Start()
     {
         
@@ -29,7 +30,10 @@ public class GameManager : MonoBehaviour
         if(deadZombieCount>=30){
             quest.text = "보스좀비를 처치하라!";
             //보스좀비
-            Instantiate(bossZombie, new Vector3(100, 26, 100), Quaternion.Euler(new Vector3(0, Random.Range(0,360), 0)));
+            if(!isSpawned){
+                isSpawned = true;
+                Instantiate(bossZombie, new Vector3(100, 26, 100), Quaternion.Euler(new Vector3(0, Random.Range(0,360), 0)));
+            }
         }
         if(zombieCount<maxZombieCount){
             range_x = Random.Range(33, 164);

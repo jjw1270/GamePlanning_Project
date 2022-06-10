@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -17,7 +18,10 @@ public class PlayerShoot : MonoBehaviour
     public GameObject bloodEffect;
     private float maxHp = 100f;
     public static float curHp = 100f;
+    float tmpHP;
     public Image hpBar;
+    public GameObject hitted;
+    public GameObject die;
     void Start()
     {
         weaponNum = 1;
@@ -26,12 +30,25 @@ public class PlayerShoot : MonoBehaviour
         screenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
         weaponTmp = 0;
         curHp = 100f;
+        tmpHP = 100f;
     }
 
     // Update is called once per frame
     void Update()
     {
         if(GameManager.isPaused) return;
+
+        if(curHp != tmpHP){
+            tmpHP = curHp;
+            hitted.SetActive(true);
+            Invoke("turnoff", 0.3f);
+        }
+        if(curHp <= 0){
+            Camera.main.GetComponent<AudioListener>().enabled = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            die.SetActive(true);
+        }
+
         hpBar.fillAmount = curHp / maxHp;
 
         bulletCountText.text = bulletCount.ToString();
@@ -39,18 +56,18 @@ public class PlayerShoot : MonoBehaviour
             weaponTmp = weaponNum;
             if(GameObject.Find("PISTOL")){
                 gun = GameObject.Find("PISTOL");
-                fireDelayTime = gun.transform.GetChild(0).GetComponent<Pistol>().fireDelay;
-                gunDamage = gun.transform.GetChild(0).GetComponent<Pistol>().damage;
+                fireDelayTime = gun.GetComponent<Pistol>().fireDelay;
+                gunDamage = gun.GetComponent<Pistol>().damage;
             }
             else if(GameObject.Find("SMG")){
                 gun = GameObject.Find("SMG");
-                fireDelayTime = gun.transform.GetChild(0).GetComponent<SMG>().fireDelay;
-                gunDamage = gun.transform.GetChild(0).GetComponent<SMG>().damage;
+                fireDelayTime = gun.GetComponent<SMG>().fireDelay;
+                gunDamage = gun.GetComponent<SMG>().damage;
             }
             else if(GameObject.Find("AK")){
                 gun = GameObject.Find("AK");
-                fireDelayTime = gun.transform.GetChild(0).GetComponent<AK>().fireDelay;
-                gunDamage = gun.transform.GetChild(0).GetComponent<AK>().damage;
+                fireDelayTime = gun.GetComponent<AK>().fireDelay;
+                gunDamage = gun.GetComponent<AK>().damage;
             }
         }
 
@@ -67,17 +84,14 @@ public class PlayerShoot : MonoBehaviour
                 Debug.Log("hit");
                 GameObject blood = Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 blood.transform.SetParent(hit.transform);
-                if(hit.transform.name == "boss"){
-                    ZombieCtrlBoss zc = hit.transform.GetComponent<ZombieCtrlBoss>();
-                    zc.EnemyHP(gunDamage);
-                    if(zc.target == null)
-                        zc.target = Camera.main.transform;
+                if(hit.transform.CompareTag("Boss")){
+                    ZombieCtrlBoss zcb = hit.transform.GetComponent<ZombieCtrlBoss>();
+                    zcb.EnemyHP(gunDamage);
                 }
                 else{
-                    ZombieCtrl zc = hit.transform.GetComponent<ZombieCtrl>();
-                    zc.EnemyHP(gunDamage);
-                    if(zc.target == null)
-                        zc.target = Camera.main.transform;
+                    hit.transform.GetComponent<ZombieCtrl>().EnemyHP(gunDamage);
+                    if(hit.transform.GetComponent<ZombieCtrl>().target == null)
+                        hit.transform.GetComponent<ZombieCtrl>().target = Camera.main.transform;
                 }
             }
         }
@@ -89,5 +103,13 @@ public class PlayerShoot : MonoBehaviour
         yield return new WaitForSeconds(fireDelayTime);   // 총기마다 연사시간 다름
         gun.transform.GetChild(0).gameObject.SetActive(false);
         isFire = false;
+    }
+    void turnoff(){
+        hitted.SetActive(false);
+    }
+    public void restart(){
+        Camera.main.GetComponent<AudioListener>().enabled = true;
+        die.SetActive(false);
+        SceneManager.LoadScene("MainScene1");
     }
 }

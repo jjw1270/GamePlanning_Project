@@ -51,6 +51,7 @@ public class ZombieCtrlBoss : MonoBehaviour
             anim.Play("Death");
             target = null;
             moveSpeed = 0;
+            this.GetComponent<BoxCollider>().size = new Vector3(0.1f,0.1f,0.1f);
             if(!isItemDrop){
                 Invoke("ItemDrop", 1f);
                 isItemDrop = true;

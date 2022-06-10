@@ -5,7 +5,7 @@ using UnityEngine;
 public class SMG : MonoBehaviour
 {
     public float fireDelay = 0.1f;
-    public int damage = 15;
+    public int damage = 20;
     void Start()
     {
         

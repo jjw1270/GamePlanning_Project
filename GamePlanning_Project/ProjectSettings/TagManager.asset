@@ -13,6 +13,7 @@ TagManager:
   - PISTOL
   - SMG
   - AK
+  - Boss
   layers:
   - Default
   - TransparentFX

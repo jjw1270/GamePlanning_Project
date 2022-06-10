@@ -13,8 +13,10 @@ public class ZombieCtrl : MonoBehaviour
     bool isAttack;
     Vector3 diePos;
     bool isItemDrop;
+    AudioSource audioSource;
     private void Awake() {
         anim = this.GetComponent<Animator>();
+        audioSource = this.GetComponent<AudioSource>();
     }
     void Start()
     {
@@ -36,6 +38,8 @@ public class ZombieCtrl : MonoBehaviour
     private void Update() {
         if(GameManager.isPaused) return;
         if(target != null){
+            if(!audioSource.isPlaying)
+                audioSource.Play();
             if(!isCollision){
                 anim.SetBool("isRun", true);
                 transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
