@@ -3,6 +3,7 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - AK
     - BulletScript
+    - CFX_AutoDestructShuriken
     - CamRotate
     - DestroyAfterTimeParticle
     - GameManager
@@ -70,8 +71,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 83
       Script: {instanceID: 0}
-    - Class: 89
-      Script: {instanceID: 0}
     - Class: 90
       Script: {instanceID: 0}
     - Class: 91
@@ -122,6 +121,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 3630}
     - Class: 114
       Script: {instanceID: 3948}
+    - Class: 114
+      Script: {instanceID: 4156}
     - Class: 114
       Script: {instanceID: 4208}
     - Class: 114
@@ -193,8 +194,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 83
       Script: {instanceID: 0}
-    - Class: 89
-      Script: {instanceID: 0}
     - Class: 90
       Script: {instanceID: 0}
     - Class: 91
@@ -224,7 +223,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3968}
     - Class: 114
-      Script: {instanceID: 18116}
+      Script: {instanceID: 18206}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -758,7 +757,7 @@ ScriptsOnlyBuild:
     className: MouseLookScript
   - hash:
       serializedVersion: 2
-      Hash: 3b65617b410c798b4298efe566fdc6a5
+      Hash: 0ceae25360e65a9163a41ec3bc301eae
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerShoot
@@ -928,4 +927,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/#Scenes/StartScene.unity
   - Assets/#Scenes/MainScene1.unity
-  playerPath: "D:/\uACE0\uB2C8/GamePlanning_Project.exe"
+  playerPath: "D:/\uB098\uBB34\uBC1C\uBC1C\uC774/GamePlanning_Project.exe"

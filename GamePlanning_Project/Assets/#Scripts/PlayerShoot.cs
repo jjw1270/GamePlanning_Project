@@ -45,7 +45,8 @@ public class PlayerShoot : MonoBehaviour
         }
         if(curHp <= 0){
             Camera.main.GetComponent<AudioListener>().enabled = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             die.SetActive(true);
         }
 
